@@ -92,6 +92,28 @@ func (comp *Client) SendWelcomeMsg(ctx context.Context, options *request.Request
 	return result, err
 }
 
+// 提醒成员群发
+// https://developer.work.weixin.qq.com/document/path/97618
+func (comp *Client) RemindGroupMsgSend(ctx context.Context, options *request.RequestRemindGroupMsgSend) (*response2.ResponseWork, error) {
+
+	result := &response2.ResponseWork{}
+
+	_, err := comp.BaseClient.HttpPostJson(ctx, "cgi-bin/externalcontact/remind_groupmsg_send", options, nil, nil, result)
+
+	return result, err
+}
+
+// 停止企业群发
+// https://developer.work.weixin.qq.com/document/path/97619
+func (comp *Client) CancelGroupMsgSend(ctx context.Context, options *request.RequestCancelGroupMsgSend) (*response2.ResponseWork, error) {
+
+	result := &response2.ResponseWork{}
+
+	_, err := comp.BaseClient.HttpPostJson(ctx, "cgi-bin/externalcontact/cancel_groupmsg_send", options, nil, nil, result)
+
+	return result, err
+}
+
 func (comp *Client) formatMessage(ctx context.Context, data *object.HashMap) (*object.HashMap, error) {
 	params := *data
 
